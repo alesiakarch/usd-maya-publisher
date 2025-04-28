@@ -1,0 +1,10 @@
+#usda 1.0
+(
+    "RIG layer containing character rig references"
+)
+
+def Xform "rigs" {
+
+}
+
+
