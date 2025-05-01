@@ -8,9 +8,9 @@ def create_custom_menu():
         cmds.deleteUI("Pipeline")
     pipeline_menu = cmds.menu("Pipeline", label="Pipeline", parent = "MayaWindow", tearOff=True)
 
-    cmds.menuItem("Load Rig", command= "load_rig_ui()")
-    cmds.menuItem("Cache Anim", command= "cache_anim_ui()")
-    cmds.menuItem("Create Anim layer", command= "create_anim_layer_ui()")
+    cmds.menuItem("Load Rig", command= lambda *args: load_rig_ui())
+    cmds.menuItem("Cache Anim", command= lambda *args: cache_anim_ui())
+    cmds.menuItem("Create Anim layer", command= lambda *args: create_anim_layer_ui())
 
 def load_rig_ui():
     print("Im Loading Rigs!")
@@ -20,6 +20,9 @@ def cache_anim_ui():
 
 def create_anim_layer_ui():
     print("Im creating animation layers!")
+
+def detach_custom_menu():
+    ...
 
 create_custom_menu()
 

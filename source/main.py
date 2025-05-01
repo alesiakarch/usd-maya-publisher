@@ -3,7 +3,7 @@
 
 import maya.cmds as cmds
 import maya.api.OpenMaya as OpenMaya
-import hello as h
+import custom_menu as cm
 
 def maya_useNewAPI():
     '''This function is called by Maya to indicate that the plugin uses the new API'''
@@ -20,11 +20,17 @@ def initializePlugin(plugin):
     plugin_fn = OpenMaya.MFnPlugin(plugin, vendor, version)
     # Now we can call my functions
     try:
-        h.say_hello()
+        cm.create_custom_menu()
+        OpenMaya.MGlobal.displayInfo("Plugin loaded successfully")
     except Exception as e:
         OpenMaya.MGlobal.displayError("Failed to load plugin: {}".format(e))
         return
 
 def uninitializePlugin(plugin):
     '''Unload the plugin'''
-    ...
+    try:
+        cmds.deleteUI("Pipeline")
+        OpenMaya.MGlobal.displayInfo("Plugin unloaded successfully")
+    except Exception as e:
+        OpenMaya.MGlobal.displayError("Failed to unload plugin: {}".format(e))
+        return

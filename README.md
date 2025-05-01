@@ -58,6 +58,14 @@ I see two options for this:
 2. Manually generate the USD files in the convention and state that I want.
 
 This might actually be a hybrid solution, as for example, the Load Rig button is basically just running maya commands, while anim layer most likely will have to be published separately, hence - generated. 
+
+List of available modules related to mayaUsd:
+
+mayaUsdAddMayaReference.mel    mayaUsdDuplicateAsMayaDataOptions.mel  mayaUsdMayaReferenceUtils.py  mayaUsdOptions.py
+mayaUsdAddMayaReference.py     mayaUsdDuplicateAsMayaDataOptions.py   mayaUsdMergeToUSDOptions.mel  mayaUsdUtils.py
+mayaUsdCacheMayaReference.mel  mayaUsdLibRegisterStrings.mel          mayaUsdMergeToUSDOptions.py
+mayaUsdCacheMayaReference.py   mayaUsdLibRegisterStrings.py           mayaUsdMergeToUsd.py
+
  
 
 
