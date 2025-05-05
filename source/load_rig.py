@@ -11,7 +11,9 @@ import maya.cmds as cmds
 from pxr import Usd, Sdf, UsdGeom
 import mayaUsdAddMayaReference as mr
 
-# initialise the USD stage
+# get and initialise the USD stage
+def get_stage():
+    
 project_root = "/home/s5221034/pipeline-project-alesiakarch/maya_test_project/"
 stage = Usd.Stage.Open(f"{project_root}TestScene_stage.usda")
 print(project_root)
