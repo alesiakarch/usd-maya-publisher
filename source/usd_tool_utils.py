@@ -10,7 +10,7 @@ def get_stage(usd_dir, stage_name):
     stage = Usd.Stage.Open(stage_path)
     return stage
 
-def create_layer(usd_dir, layer_name):
+def create_layer(stage, usd_dir, layer_name):
     """
     Create a new USD layer and add it to the root layer.
     """
@@ -18,7 +18,9 @@ def create_layer(usd_dir, layer_name):
     layer_path = f"{usd_dir}/{layer_name}"
     usd_layer = Sdf.Layer.CreateNew(layer_path)
     usd_layer.comment = "Created new usd layer"
-
-    # stage.GetRootLayer().subLayerPaths.append(rig_layer_path)
-    # print (stage)
-    # stage.GetRootLayer().Save()
+    
+    # append the new layer to the root layer
+    stage.GetRootLayer().subLayerPaths.append(usd_layer.identifier)
+    print (f"{layer_name} appended to {stage}")
+    stage.GetRootLayer().Save()
+    return usd_layer
