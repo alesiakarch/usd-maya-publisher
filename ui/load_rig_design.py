@@ -48,10 +48,10 @@ class Ui_Load_Rig(object):
 
         self.gridLayout_2.addItem(self.horizontalSpacer, 3, 0, 1, 4)
 
-        self.lineEdit = QLineEdit(self.groupBox)
-        self.lineEdit.setObjectName(u"lineEdit")
+        self.root_picker = QLineEdit(self.groupBox)
+        self.root_picker.setObjectName(u"root_picker")
 
-        self.gridLayout_2.addWidget(self.lineEdit, 1, 1, 1, 2)
+        self.gridLayout_2.addWidget(self.root_picker, 1, 1, 1, 2)
 
         self.browse_dir_button = QPushButton(self.groupBox)
         self.browse_dir_button.setObjectName(u"browse_dir_button")
@@ -75,10 +75,10 @@ class Ui_Load_Rig(object):
     def retranslateUi(self, Load_Rig):
         Load_Rig.setWindowTitle(QCoreApplication.translate("Load_Rig", u"Form", None))
         self.groupBox.setTitle(QCoreApplication.translate("Load_Rig", u"Rig Loader", None))
-        self.browse_rig_button.setText(QCoreApplication.translate("Load_Rig", u"Browse", None))
+        self.browse_rig_button.setText(QCoreApplication.translate("Load_Rig", u"Browse Rig", None))
         self.usd_dir_label.setText(QCoreApplication.translate("Load_Rig", u"Set Usd Directory", None))
         self.choose_rig_label.setText(QCoreApplication.translate("Load_Rig", u"Choose Rig", None))
-        self.browse_dir_button.setText(QCoreApplication.translate("Load_Rig", u"Browse", None))
+        self.browse_dir_button.setText(QCoreApplication.translate("Load_Rig", u"Browse Dir", None))
         self.load_rig_button.setText(QCoreApplication.translate("Load_Rig", u"Load Rig", None))
     # retranslateUi
 

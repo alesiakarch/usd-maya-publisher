@@ -6,9 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "pyside2>=5.15.2.1",
-    "pyside6>=6.9.0",
     "pytest>=8.3.5",
-    "qtpy>=2.4.3",
     "tomlkit>=0.13.2",
     "usd-core>=25.5",
 ]

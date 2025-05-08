@@ -23,7 +23,7 @@
       <item row="2" column="3">
        <widget class="QPushButton" name="browse_rig_button">
         <property name="text">
-         <string>Browse</string>
+         <string>Browse Rig</string>
         </property>
        </widget>
       </item>
@@ -58,12 +58,12 @@
        </spacer>
       </item>
       <item row="1" column="1" colspan="2">
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="root_picker"/>
       </item>
       <item row="1" column="3">
        <widget class="QPushButton" name="browse_dir_button">
         <property name="text">
-         <string>Browse</string>
+         <string>Browse Dir</string>
         </property>
        </widget>
       </item>
