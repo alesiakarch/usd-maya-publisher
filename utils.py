@@ -20,7 +20,7 @@ help(mayaUsdMergeToUsd)
     #     This type name is kept in the 'USD_typeName' attribute.
     #     Returns None if the attribute is not found.
 
-    import maya.cmds as cmds
+    #import maya.cmds as cmds
 
 # # finds the stage path from open stage
 # def get_usd_stage_path():
