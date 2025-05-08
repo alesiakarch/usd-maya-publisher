@@ -2,7 +2,7 @@ import pytest
 import os
 import tempfile
 import maya.standalone
-import maya.cmds as cmds
+
 from pxr import Sdf, Usd
 from source.usd_tool_utils import get_stage, create_layer
 
@@ -12,6 +12,7 @@ def maya_setup():
     Fixture to set up and tear down the Maya standalone environment.
     """
     maya.standalone.initialize()
+    import maya.cmds as cmds
     yield
     if "mayaUsdPlugin" in cmds.pluginInfo(query=True, listPlugins=True):
         cmds.unloadPlugin("mayaUsdPlugin", force=True)

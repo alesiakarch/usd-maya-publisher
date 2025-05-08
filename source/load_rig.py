@@ -5,21 +5,28 @@
 # I'll hardcode the "rigs" Xform for now to focus on the loading part
 # I think in production the proxy rigs are added to layout to convey which characters are in the scene, and then the animators load the rig into the ANIM layer
 import os
-import maya.cmds as cmds
+#import maya.cmds as cmds
 from pxr import Usd, Sdf, UsdGeom
-import mayaUsdAddMayaReference as mr
-import usd_tool_utils as usd_utils
+import maya.cmds as cmds
+import source.usd_tool_utils as usd_utils
 
 
-project_root = "/home/s5221034/pipeline-project-alesiakarch/maya_test_project/"
-stage_name = "TestScene_stage.usda"
-rig_layer_name = "Test_Scene_RIG.usda"
-asset_path = f"{project_root}assets/Wall-e_Rigs/Wall-e_RIG_v001.mb"
+# project_root = "/home/s5221034/pipeline-project-alesiakarch/maya_test_project/"
+# stage_name = "TestScene_stage.usda"
+# rig_layer_name = "Test_Scene_RIG.usda"
+# asset_path = f"{project_root}assets/Wall-e_Rigs/Wall-e_RIG_v001.mb"
 
 def load_rig(project_root, stage_name, rig_layer_name, asset_path):
     """
     Load the rig into the USD stage.
     """
+    
+    # Load maya USd plugin to run the mayaUsdAddMayaReference
+    # if not cmds.pluginInfo("mayaUsdPlugin", query = True, loaded = True):
+    #     cmds.loadPlugin("mayaUsdPlugin")
+
+    import mayaUsdAddMayaReference as mr
+
     # get the USD stage
     stage = usd_utils.get_stage(project_root, stage_name)
 
