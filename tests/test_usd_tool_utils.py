@@ -3,7 +3,7 @@ import os
 import tempfile
 import maya.standalone
 import maya.cmds as cmds
-from pxr import Sdf, Usd, UsdGeom
+from pxr import Sdf, Usd
 from source.usd_tool_utils import get_stage, create_layer
 
 @pytest.fixture
@@ -13,8 +13,8 @@ def maya_setup():
     """
     maya.standalone.initialize()
     yield
-    if "mayaUsdPlugin" in maya.cmds.pluginInfo(query=True, listPlugins=True):
-        maya.cmds.unloadPlugin("mayaUsdPlugin", force=True)
+    if "mayaUsdPlugin" in cmds.pluginInfo(query=True, listPlugins=True):
+        cmds.unloadPlugin("mayaUsdPlugin", force=True)
     maya.standalone.uninitialize()
 
 def test_get_stage():
