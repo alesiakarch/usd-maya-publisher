@@ -3,6 +3,7 @@ from PySide2.QtWidgets import QApplication, QDialog, QWidget
 from shiboken2 import wrapInstance
 import maya.OpenMayaUI as OpenMaya
 from ui.create_ani_layer_design import Ui_CreateANILayer
+#import the create ani layer script
 
 class CreateAniLayerUI(QDialog):
     def __init__(self, parent = None):
