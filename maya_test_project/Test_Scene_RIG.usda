@@ -1,10 +1,33 @@
 #usda 1.0
 (
-    "RIG layer containing character rig references"
+    defaultPrim = "rigs"
 )
 
 def Xform "rigs" {
+    
+    def Xform "CharRoot" (
+        prepend variantSets = "Representation"
+    )
+    {
+        variantSet "Representation" = {
+            "Cache" {
+                def Xform "Cache1" (
+                    append references = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/test_cache002.usd@</Cache1>
+                )
+                {
+                }
+            }
 
+            "MayaReference" {
+                def MayaReference "MayaReference1" (
+                    kind = "component"
+                )
+                {
+                    bool mayaAutoEdit = 0
+                    string mayaNamespace = "TestRig"
+                    asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Test_Rig.ma@
+                }
+            }
+        }
+    }
 }
-
-
