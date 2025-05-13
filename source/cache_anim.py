@@ -4,11 +4,12 @@
 # Cache selected
 
 import pathlib
+import re
 from pxr import Usd, Sdf
 import maya.cmds as cmds
 import source.usd_tool_utils as usd_utils
 
-cache_path = "diretory" # get from the ui
+cache_path = "directory" # get from the ui
 start_frame = 1 #get from ui
 end_frame = 10 #get from ui
 euler_filter = 0 #get from ui
@@ -17,12 +18,12 @@ def cache_anim_button():
     """
     Cache the chosen rig into a usd cache
     """
-    # activate stage for findng and writing out things
+    # activate stage for finding and writing out things
     stage = usd_utils.get_stage()
 
     # find rigs in stage, pass them to the ui
     rigs = []
-    rigs = find_rig()
+    rigs = find_rigs(stage) # returns a list of paths to rigs    
 
     # react to users selection from the ui and select them in usd stage
     caching_rigs = []
@@ -33,7 +34,11 @@ def cache_anim_button():
 
 
 def cache_rig(cache_dir, rig_name, start, end, euler):
+
+
+    
     # select the rig beforehand
+    cmds.select(rig_name)
         # Set USD export options
     export_options = (
         f"shadingMode=useRegistry;"
@@ -69,3 +74,28 @@ def cache_rig(cache_dir, rig_name, start, end, euler):
     )
 
     print(f"Caching complete: {output_path}")
+
+
+def find_rigs(stage):
+    rigs = stage.GetPrimAtPath("/rigs")
+    if rigs.IsValid:
+        print("Found rigs in stage!")
+    else:
+        print("No rigs found!")
+     
+    rigs_list = rigs.GetChildren()
+    print(rigs_list)
+    rig_names = []
+    for prim in rigs_list: # rig_name format
+        rig_name = prim.GetName()
+        rig_names.append(rig_name)
+
+    rig_names_path = []
+    for rig in range(len(rigs_list)): # /rigs/rig_name path
+        rig_path = re.search("<(.*?)>", str(rigs_list[rig])).group(1)
+        rig_names_path.append(rig_path) 
+
+        # do GetPrim is needed a path
+    print(rig_names, rig_names_path)
+    return rig_names, rig_names_path
+    

@@ -1,5 +1,6 @@
 # Contains reusable functions for USD tools
 from pxr import Usd, Sdf, UsdGeom
+import maya.cmds as cmds
 
 def get_stage(usd_dir, stage_name):
     """
@@ -24,3 +25,12 @@ def create_layer(stage, usd_dir, layer_name):
     print (f"{layer_name} appended to {stage}")
     stage.GetRootLayer().Save()
     return usd_layer
+
+def get_framerange():
+    """
+    Retrieves start and end frame from the maya scene
+    """
+    start_frame = cmds.playbackOptions(query = True, minTime = True)
+    end_frame = cmds.playbackOptions(query = True, maxTime = True)
+    print(f"Framerange: {start_frame} - {end_frame}")
+    return start_frame, end_frame

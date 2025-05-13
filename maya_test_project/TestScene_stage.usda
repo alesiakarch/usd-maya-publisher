@@ -6,35 +6,3 @@
     ]
 )
 
-over "rigs"
-{
-    def Xform "Xform1" (
-        variants = {
-            string Representation = "MayaReference"
-        }
-        prepend variantSets = "Representation"
-    )
-    {
-        variantSet "Representation" = {
-            "MayaReference" {
-                def MayaReference "MayaReference1"
-                {
-                    bool mayaAutoEdit = 1
-                    string mayaNamespace = "Test_Rig"
-                    asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Test_Rig.ma@
-                }
-
-            }
-        }
-    }
-}
-
-over "env" (
-    prepend references = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/python_cache001.usd@
-)
-{
-    over "MayaReference1Parent"
-    {
-    }
-}
-
