@@ -2,14 +2,33 @@
 from pxr import Usd, Sdf, UsdGeom
 import maya.cmds as cmds
 
-def get_stage(usd_dir, stage_name):
-    """
-    Get the USD stage from the USD project root folder.
-    """
-    stage_path = f"{usd_dir}/{stage_name}"
-    print(f"Loading USD stage from: {stage_path}")
-    stage = Usd.Stage.Open(stage_path)
-    return stage
+# def get_stage_old(usd_dir, stage_name):
+#     """
+#     Get the USD stage from the USD project root folder.
+#     """
+#     stage_path = f"{usd_dir}/{stage_name}"
+#     print(f"Loading USD stage from: {stage_path}")
+#     stage = Usd.Stage.Open(stage_path)
+#     return stage
+
+def get_stage():
+    # List all proxy shapes in the Maya scene
+        proxy_shapes = cmds.ls(type="mayaUsdProxyShape")
+        if not proxy_shapes:
+            raise RuntimeError("No USD proxy shapes found in the Maya scene!")
+        if len(proxy_shapes) > 1:
+            print("Warning: Multiple USD proxy shapes detected. Using the first one.")
+
+        # Get the first proxy shape
+        usd_proxy_shape = proxy_shapes[0]
+
+        # Get the stage file path from the proxy shape
+        stage_path = cmds.getAttr(f"{usd_proxy_shape}.filePath")
+        if not stage_path:
+            raise RuntimeError(f"Proxy shape '{usd_proxy_shape}' does not have a valid file path!")
+
+        stage = Usd.Stage.Open(stage_path)
+        return stage
 
 def create_layer(stage, usd_dir, layer_name):
     """

@@ -3,39 +3,19 @@
 # Gives an option to select them
 # Cache selected
 
-import pathlib
+from pathlib import Path
 import re
 from pxr import Usd, Sdf
 import maya.cmds as cmds
 import source.usd_tool_utils as usd_utils
 
 cache_path = "directory" # get from the ui
-start_frame = 1 #get from ui
-end_frame = 10 #get from ui
-euler_filter = 0 #get from ui
 
-def cache_anim_button():
-    """
-    Cache the chosen rig into a usd cache
-    """
-    # activate stage for finding and writing out things
-    stage = usd_utils.get_stage()
+def cache_rig(cache_dir, rig_name, start, end, euler=0):
 
-    # find rigs in stage, pass them to the ui
-    rigs = []
-    rigs = find_rigs(stage) # returns a list of paths to rigs    
-
-    # react to users selection from the ui and select them in usd stage
-    caching_rigs = []
-    caching_rigs = select_rig()
-
-    for rig in caching_rigs:
-        cache_rig(rig)
-
-
-def cache_rig(cache_dir, rig_name, start, end, euler):
-
-
+    # Ensure the cache directory exists
+    cache_dir_path = Path(cache_dir)
+    cache_dir_path.mkdir(parents=True, exist_ok=True)
     
     # select the rig beforehand
     cmds.select(rig_name)
@@ -61,7 +41,13 @@ def cache_rig(cache_dir, rig_name, start, end, euler):
         f"convertMaterialsTo=[UsdPreviewSurface];"
     )
 
-    output_path = f"{cache_dir}/{rig_name}_{index:03d}"
+    index = 1
+    max_versions = 100
+    while index < max_versions:
+        output_path = cache_dir_path / f"{cache_dir}/{rig_name}_{index:03d}.usd"
+        if not output_path.exists():
+            break 
+        index += 1
 
     # Export to USD
     cmds.file(

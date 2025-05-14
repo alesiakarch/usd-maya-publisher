@@ -17,12 +17,15 @@ class CacheAnimUI(QDialog):
         self.ui = Ui_CacheAnim()
         self.ui.setupUi(self)
 
-        stage = cache.usd_utils.get_stage("/home/s5221034/pipeline-project-alesiakarch/maya_test_project/", "TestScene_stage.usda")
+        stage = cache.usd_utils.get_stage()
+        #stage = cache.usd_utils.get_stage("/home/s5221034/pipeline-project-alesiakarch/maya_test_project/", "TestScene_stage.usda")
         rigs, rigs_path = cache.find_rigs(stage)
         self.populate_rigs_list(rigs) # runs populate rigs list at window init
 
         # when selection in the list widget changes, update rig_list_selected
         self.ui.rigs_list.itemSelectionChanged.connect(self.rig_list_selected)
+
+        self.ui.select_all_chbox.stateChanged.connect(self.select_all_ticked)
 
         # connect the custom framerange tick box 
         self.ui.custom_framerange_chbox.stateChanged.connect(self.custom_framerange_ticked)
@@ -32,7 +35,10 @@ class CacheAnimUI(QDialog):
 
         # connect euler filer
         self.ui.euler_chbox.stateChanged.connect(self.euler_filter_checked)   
-        self.ui.euler_filter = 0 
+        self.euler_filter = 0 
+
+        # connect the cache button
+        self.ui.cache_anim_pb.clicked.connect(self.cache_anim_pressed)
 
     def populate_rigs_list(self, rigs):
         """
@@ -40,6 +46,23 @@ class CacheAnimUI(QDialog):
         """
         self.ui.rigs_list.clear() # clears any mess in there
         self.ui.rigs_list.addItems(rigs) # populates the list
+
+    def select_all_ticked(self, state):
+        """
+        Select and deselects all the rigs in the List
+        """
+        if state == Qt.Checked:
+            # Select all
+            for i in range(self.ui.rigs_list.count()):
+                item = self.ui.rigs_list.item(i)
+                item.setSelected(True)
+
+        else:
+            # Deselect all
+            for i in range(self.ui.rigs_list.count()):
+                item = self.ui.rigs_list.item(i)
+                item.setSelected(False)
+
     
     def rig_list_selected(self):
         """
@@ -85,10 +108,9 @@ class CacheAnimUI(QDialog):
         """
         Cache anim
         """
-        
-
-        
-
+        cache_dir = "/home/s5221034/pipeline-project-alesiakarch/maya_test_project/cache"
+        for rig in self.selected_rigs:
+            cache.cache_rig(cache_dir, rig, self.start_frame, self.end_frame, self.euler_filter)
 
 
 def run_cache_anim_ui():
