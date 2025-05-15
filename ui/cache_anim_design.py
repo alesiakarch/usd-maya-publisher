@@ -87,7 +87,7 @@ class Ui_CacheAnim(object):
     # setupUi
 
     def retranslateUi(self, CacheAnim):
-        CacheAnim.setWindowTitle(QCoreApplication.translate("CacheAnim", u"Form", None))
+        CacheAnim.setWindowTitle(QCoreApplication.translate("CacheAnim", u"Cache Anim", None))
         self.cache_ani_box.setTitle(QCoreApplication.translate("CacheAnim", u"Cache Animation", None))
         self.euler_chbox.setText(QCoreApplication.translate("CacheAnim", u"Euler Filter", None))
         self.cache_rigs_lb.setText(QCoreApplication.translate("CacheAnim", u"Cache Rigs:", None))

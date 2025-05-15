@@ -16,16 +16,9 @@ class LoadRigUI(QDialog):
         super(LoadRigUI, self).__init__(main_window)
         self.ui = Ui_Load_Rig() 
         self.ui.setupUi(self)
-        self.ui.browse_dir_button.clicked.connect(self.browse_root_pressed)
         self.ui.browse_rig_button.clicked.connect(self.browse_rig_pressed)
         self.ui.load_rig_button.clicked.connect(self.load_rig_pressed)
-      
-    def browse_root_pressed(self):
-        usd_dir = QFileDialog.getExistingDirectory(self, "Select Usd Root Directory", "./")
-        if usd_dir:
-            print(f"Usd Root Directory: {usd_dir}")
-            self.ui.root_picker.setText(usd_dir)
-        
+         
     def browse_rig_pressed(self):
         rig_path = QFileDialog.getOpenFileName(self, "Select Rig File", "./", "Maya Files (*.mb *.ma)")
         if rig_path:
