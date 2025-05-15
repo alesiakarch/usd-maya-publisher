@@ -2,7 +2,7 @@ import pytest
 import pathlib
 import tempfile
 import maya.standalone
-#import maya.cmds as cmds
+import maya.cmds as cmds
 from pxr import Usd, Sdf
 from source.load_rig import load_rig
 
@@ -16,7 +16,7 @@ def maya_setup():
     print("Maya standalone is initialized")
     if not cmds.pluginInfo("mayaUsdPlugin", query=True, loaded=True):
         cmds.loadPlugin("mayaUsdPlugin")
-        print("loading maya usd plg")
+        print("Loading maya Usd plugin...")
     
     print("mayaUsdPlugin loaded:", cmds.pluginInfo("mayaUsdPlugin", query=True, loaded=True))
 
@@ -30,7 +30,7 @@ def maya_setup():
 
 def test_load_rig(maya_setup):
     print("testing rigs")
-    import maya.cmds as cmds
+    #import maya.cmds as cmds
     
     with tempfile.TemporaryDirectory() as temp_dir:
         # Mocking the temp dir

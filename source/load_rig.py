@@ -5,7 +5,6 @@
 # I'll hardcode the "rigs" Xform for now to focus on the loading part
 # I think in production the proxy rigs are added to layout to convey which characters are in the scene, and then the animators load the rig into the ANIM layer
 import os
-#import maya.cmds as cmds
 from pxr import Usd, Sdf, UsdGeom
 import maya.cmds as cmds
 import source.usd_tool_utils as usd_utils

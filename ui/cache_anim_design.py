@@ -30,6 +30,7 @@ class Ui_CacheAnim(object):
 
         self.framerange_start = QLineEdit(self.cache_ani_box)
         self.framerange_start.setObjectName(u"framerange_start")
+        self.framerange_start.setEnabled(False)
 
         self.gridLayout.addWidget(self.framerange_start, 1, 4, 1, 1)
 
@@ -38,15 +39,16 @@ class Ui_CacheAnim(object):
 
         self.gridLayout.addWidget(self.cache_rigs_lb, 0, 0, 1, 1)
 
-        self.frameramge_end = QLineEdit(self.cache_ani_box)
-        self.frameramge_end.setObjectName(u"frameramge_end")
+        self.framerange_end = QLineEdit(self.cache_ani_box)
+        self.framerange_end.setObjectName(u"framerange_end")
+        self.framerange_end.setEnabled(False)
 
-        self.gridLayout.addWidget(self.frameramge_end, 1, 6, 1, 1)
+        self.gridLayout.addWidget(self.framerange_end, 1, 6, 1, 1)
 
-        self.custon_framerange_chbox = QCheckBox(self.cache_ani_box)
-        self.custon_framerange_chbox.setObjectName(u"custon_framerange_chbox")
+        self.custom_framerange_chbox = QCheckBox(self.cache_ani_box)
+        self.custom_framerange_chbox.setObjectName(u"custom_framerange_chbox")
 
-        self.gridLayout.addWidget(self.custon_framerange_chbox, 1, 0, 1, 2)
+        self.gridLayout.addWidget(self.custom_framerange_chbox, 1, 0, 1, 2)
 
         self.end = QLabel(self.cache_ani_box)
         self.end.setObjectName(u"end")
@@ -69,6 +71,7 @@ class Ui_CacheAnim(object):
 
         self.rigs_list = QListWidget(self.cache_ani_box)
         self.rigs_list.setObjectName(u"rigs_list")
+        self.rigs_list.setSelectionMode(QAbstractItemView.MultiSelection)
 
         self.gridLayout.addWidget(self.rigs_list, 0, 1, 1, 4)
 
@@ -88,7 +91,7 @@ class Ui_CacheAnim(object):
         self.cache_ani_box.setTitle(QCoreApplication.translate("CacheAnim", u"Cache Animation", None))
         self.euler_chbox.setText(QCoreApplication.translate("CacheAnim", u"Euler Filter", None))
         self.cache_rigs_lb.setText(QCoreApplication.translate("CacheAnim", u"Cache Rigs:", None))
-        self.custon_framerange_chbox.setText(QCoreApplication.translate("CacheAnim", u"Custom Frame range", None))
+        self.custom_framerange_chbox.setText(QCoreApplication.translate("CacheAnim", u"Custom Frame range", None))
         self.end.setText(QCoreApplication.translate("CacheAnim", u"End", None))
         self.start.setText(QCoreApplication.translate("CacheAnim", u"Start", None))
         self.select_all_chbox.setText(QCoreApplication.translate("CacheAnim", u"Select All", None))

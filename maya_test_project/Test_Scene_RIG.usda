@@ -1,10 +1,16 @@
 #usda 1.0
 (
-    "RIG layer containing character rig references"
+    defaultPrim = "rigs"
 )
 
-def Xform "rigs" {
+def Xform "rigs"
+{
+    def Xform "test_rig1"
+    {
+    }
 
+    def Xform "test_rig2"
+    {
+    }
 }
-
 

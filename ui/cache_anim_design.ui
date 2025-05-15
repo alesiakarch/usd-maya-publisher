@@ -34,7 +34,11 @@
      </widget>
     </item>
     <item row="1" column="4">
-     <widget class="QLineEdit" name="framerange_start"/>
+     <widget class="QLineEdit" name="framerange_start">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+     </widget>
     </item>
     <item row="0" column="0">
      <widget class="QLabel" name="cache_rigs_lb">
@@ -44,10 +48,14 @@
      </widget>
     </item>
     <item row="1" column="6">
-     <widget class="QLineEdit" name="frameramge_end"/>
+     <widget class="QLineEdit" name="framerange_end">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+     </widget>
     </item>
     <item row="1" column="0" colspan="2">
-     <widget class="QCheckBox" name="custon_framerange_chbox">
+     <widget class="QCheckBox" name="custom_framerange_chbox">
       <property name="text">
        <string>Custom Frame range</string>
       </property>
@@ -88,7 +96,11 @@
      </widget>
     </item>
     <item row="0" column="1" colspan="4">
-     <widget class="QListWidget" name="rigs_list"/>
+     <widget class="QListWidget" name="rigs_list">
+      <property name="selectionMode">
+       <enum>QAbstractItemView::MultiSelection</enum>
+      </property>
+     </widget>
     </item>
     <item row="2" column="6">
      <widget class="QPushButton" name="cache_anim_pb">
