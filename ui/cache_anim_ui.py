@@ -3,6 +3,7 @@ from PySide2.QtWidgets import QApplication, QDialog, QWidget
 from PySide2.QtCore import Qt
 from shiboken2 import wrapInstance
 import maya.OpenMayaUI as OpenMaya
+from pxr import Usd
 from ui.cache_anim_design import Ui_CacheAnim
 import source.cache_anim as cache
 # import cache anim script
@@ -17,7 +18,8 @@ class CacheAnimUI(QDialog):
         self.ui = Ui_CacheAnim()
         self.ui.setupUi(self)
 
-        stage = cache.usd_utils.get_stage()
+        stage_path = cache.usd_utils.get_stage_path()
+        stage = Usd.Stage.Open(stage_path)
         #stage = cache.usd_utils.get_stage("/home/s5221034/pipeline-project-alesiakarch/maya_test_project/", "TestScene_stage.usda")
         rigs, rigs_path = cache.find_rigs(stage)
         self.populate_rigs_list(rigs) # runs populate rigs list at window init

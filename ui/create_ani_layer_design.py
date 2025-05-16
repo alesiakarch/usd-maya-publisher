@@ -90,7 +90,7 @@ class Ui_CreateANILayer(object):
     # setupUi
 
     def retranslateUi(self, CreateANILayer):
-        CreateANILayer.setWindowTitle(QCoreApplication.translate("CreateANILayer", u"Form", None))
+        CreateANILayer.setWindowTitle(QCoreApplication.translate("CreateANILayer", u"Create Anim Layer", None))
         self.create_gbox.setTitle(QCoreApplication.translate("CreateANILayer", u"Create ANI Layer", None))
         self.cache_label.setText(QCoreApplication.translate("CreateANILayer", u"Caches:", None))
         self.checkBox.setText(QCoreApplication.translate("CreateANILayer", u"Assemble Latest Cache", None))

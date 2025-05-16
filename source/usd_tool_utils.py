@@ -11,7 +11,7 @@ import maya.cmds as cmds
 #     stage = Usd.Stage.Open(stage_path)
 #     return stage
 
-def get_stage():
+def get_stage_path():
     # List all proxy shapes in the Maya scene
         proxy_shapes = cmds.ls(type="mayaUsdProxyShape")
         if not proxy_shapes:
@@ -27,8 +27,7 @@ def get_stage():
         if not stage_path:
             raise RuntimeError(f"Proxy shape '{usd_proxy_shape}' does not have a valid file path!")
 
-        stage = Usd.Stage.Open(stage_path)
-        return stage
+        return stage_path
 
 def create_layer(stage, usd_dir, layer_name):
     """
