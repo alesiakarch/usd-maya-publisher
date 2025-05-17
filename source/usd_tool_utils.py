@@ -29,14 +29,14 @@ def get_stage_path():
 
         return stage_path
 
-def create_layer(stage, usd_dir, layer_name):
+def create_layer(stage, layer_dir, layer_name):
     """
     Create a new USD layer and add it to the root layer.
     """
     print("Creating new USD layer...")
-    layer_path = f"{usd_dir}/{layer_name}"
+    layer_path = f"{layer_dir}/{layer_name}"
     usd_layer = Sdf.Layer.CreateNew(layer_path)
-    usd_layer.comment = "Created new usd layer"
+    usd_layer.comment = f"Created new usd layer {layer_path}"
     
     # append the new layer to the root layer
     stage.GetRootLayer().subLayerPaths.append(usd_layer.identifier)
@@ -52,3 +52,5 @@ def get_framerange():
     end_frame = cmds.playbackOptions(query = True, maxTime = True)
     print(f"Framerange: {start_frame} - {end_frame}")
     return start_frame, end_frame
+
+

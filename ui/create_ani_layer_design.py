@@ -23,65 +23,32 @@ class Ui_CreateANILayer(object):
         self.create_gbox.setGeometry(QRect(20, 20, 671, 311))
         self.gridLayout = QGridLayout(self.create_gbox)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.cache_label = QLabel(self.create_gbox)
-        self.cache_label.setObjectName(u"cache_label")
-
-        self.gridLayout.addWidget(self.cache_label, 0, 0, 1, 1)
-
         self.rigs_caches_tree = QTreeWidget(self.create_gbox)
         __qtreewidgetitem = QTreeWidgetItem()
         __qtreewidgetitem.setText(0, u"1");
         self.rigs_caches_tree.setHeaderItem(__qtreewidgetitem)
         self.rigs_caches_tree.setObjectName(u"rigs_caches_tree")
         self.rigs_caches_tree.setLineWidth(1)
+        self.rigs_caches_tree.setSelectionMode(QAbstractItemView.MultiSelection)
         self.rigs_caches_tree.header().setVisible(False)
 
-        self.gridLayout.addWidget(self.rigs_caches_tree, 0, 1, 1, 4)
-
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer_3, 1, 0, 1, 1)
-
-        self.checkBox = QCheckBox(self.create_gbox)
-        self.checkBox.setObjectName(u"checkBox")
-        self.checkBox.setChecked(True)
-
-        self.gridLayout.addWidget(self.checkBox, 2, 0, 1, 2)
-
-        self.framerange_chbox = QCheckBox(self.create_gbox)
-        self.framerange_chbox.setObjectName(u"framerange_chbox")
-
-        self.gridLayout.addWidget(self.framerange_chbox, 3, 0, 1, 2)
-
-        self.start_label = QLabel(self.create_gbox)
-        self.start_label.setObjectName(u"start_label")
-
-        self.gridLayout.addWidget(self.start_label, 3, 2, 1, 1)
-
-        self.start = QLineEdit(self.create_gbox)
-        self.start.setObjectName(u"start")
-        self.start.setReadOnly(False)
-
-        self.gridLayout.addWidget(self.start, 3, 3, 1, 1)
-
-        self.end_label = QLabel(self.create_gbox)
-        self.end_label.setObjectName(u"end_label")
-
-        self.gridLayout.addWidget(self.end_label, 3, 4, 1, 1)
-
-        self.end = QLineEdit(self.create_gbox)
-        self.end.setObjectName(u"end")
-
-        self.gridLayout.addWidget(self.end, 3, 5, 1, 1)
-
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer, 4, 3, 1, 1)
+        self.gridLayout.addWidget(self.rigs_caches_tree, 0, 1, 1, 2)
 
         self.create_button = QPushButton(self.create_gbox)
         self.create_button.setObjectName(u"create_button")
 
-        self.gridLayout.addWidget(self.create_button, 5, 5, 1, 1)
+        self.gridLayout.addWidget(self.create_button, 2, 3, 1, 1)
+
+        self.latest_cache_checkbox = QCheckBox(self.create_gbox)
+        self.latest_cache_checkbox.setObjectName(u"latest_cache_checkbox")
+        self.latest_cache_checkbox.setChecked(True)
+
+        self.gridLayout.addWidget(self.latest_cache_checkbox, 1, 0, 1, 2)
+
+        self.cache_label = QLabel(self.create_gbox)
+        self.cache_label.setObjectName(u"cache_label")
+
+        self.gridLayout.addWidget(self.cache_label, 0, 0, 1, 1)
 
 
         self.retranslateUi(CreateANILayer)
@@ -92,11 +59,8 @@ class Ui_CreateANILayer(object):
     def retranslateUi(self, CreateANILayer):
         CreateANILayer.setWindowTitle(QCoreApplication.translate("CreateANILayer", u"Create Anim Layer", None))
         self.create_gbox.setTitle(QCoreApplication.translate("CreateANILayer", u"Create ANI Layer", None))
-        self.cache_label.setText(QCoreApplication.translate("CreateANILayer", u"Caches:", None))
-        self.checkBox.setText(QCoreApplication.translate("CreateANILayer", u"Assemble Latest Cache", None))
-        self.framerange_chbox.setText(QCoreApplication.translate("CreateANILayer", u"Custom Frame range", None))
-        self.start_label.setText(QCoreApplication.translate("CreateANILayer", u"Start", None))
-        self.end_label.setText(QCoreApplication.translate("CreateANILayer", u"End", None))
         self.create_button.setText(QCoreApplication.translate("CreateANILayer", u"Create ANI Layer", None))
+        self.latest_cache_checkbox.setText(QCoreApplication.translate("CreateANILayer", u"Assemble Latest Cache", None))
+        self.cache_label.setText(QCoreApplication.translate("CreateANILayer", u"Caches:", None))
     # retranslateUi
 

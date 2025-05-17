@@ -29,10 +29,15 @@ def load_rig(asset_path):
     stage_file = Path(stage_path).name
 
     rig_file_name = Path(stage_file).stem + "_RIG_layer" + Path(stage_file).suffix
-    rig_file = stage_dir / rig_file_name
+
+    rig_layer_dir = stage_dir / "RIG"
+    rig_layer_dir.mkdir(parents=True, exist_ok=True)
+
+    rig_file = rig_layer_dir / rig_file_name
+    
 
     # check if the rig layer exists, if not create the RIG layer
-    rig_layer = get_rig_layer(stage, rig_file, stage_dir, rig_file_name)
+    rig_layer = get_rig_layer(stage, rig_file, rig_layer_dir, rig_file_name)
 
     # Defining the rig path and namespace before loading Maya reference
     dag_path = get_scene_proxy()
@@ -76,6 +81,8 @@ def load_rig(asset_path):
     cmds.mayaUsdEditAsMaya(f"{path_to_usd_rig}/{maya_namespace}")
 
     # save RIG layer
+    rig_layer.Save()
+    # save stage
     stage.GetRootLayer().Save()
 
 
@@ -108,7 +115,7 @@ def get_scene_proxy():
     dag_path = f"{parent_path[0]}|{usd_proxy_shape}" 
     return dag_path
 
-def get_rig_layer(stage, rig_file, stage_dir, rig_file_name):
+def get_rig_layer(stage, rig_file, rig_layer_dir, rig_file_name):
     # check if the rig layer exists, if not create the RIG layer
     rig_layer = Sdf.Layer.Find(str(rig_file))
     if rig_layer:
@@ -116,6 +123,6 @@ def get_rig_layer(stage, rig_file, stage_dir, rig_file_name):
 
     else:
         print("Rig layer not found. Creating a new one")
-        rig_layer = usd_utils.create_layer(stage, stage_dir, rig_file_name)
+        rig_layer = usd_utils.create_layer(stage, rig_layer_dir, rig_file_name)
         stage.SetEditTarget(rig_layer)
     return rig_layer

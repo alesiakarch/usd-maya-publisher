@@ -11,11 +11,11 @@ import source.usd_tool_utils as usd_utils
 
 cache_path = "directory" # get from the ui
 
-def cache_rig(cache_dir, rig_name, start, end, euler=0):
+def cache_rig(stage_dir, rig_name, start, end, euler=0):
 
     # Ensure the cache directory exists
-    cache_dir_path = Path(cache_dir)
-    cache_dir_path.mkdir(parents=True, exist_ok=True)
+    cache_dir = Path(stage_dir) / "ANI" / "cache"
+    cache_dir.mkdir(parents=True, exist_ok=True)
     
     # select the rig beforehand
     cmds.select(rig_name)
@@ -44,7 +44,7 @@ def cache_rig(cache_dir, rig_name, start, end, euler=0):
     index = 1
     max_versions = 100
     while index < max_versions:
-        output_path = cache_dir_path / f"{cache_dir}/{rig_name}_{index:03d}.usd"
+        output_path = cache_dir/ f"{rig_name}_{index:03d}.usd"
         if not output_path.exists():
             break 
         index += 1

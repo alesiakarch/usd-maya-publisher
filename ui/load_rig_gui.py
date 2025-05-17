@@ -28,7 +28,7 @@ class LoadRigUI(QDialog):
       
     def load_rig_pressed(self):
         # get the variables
-        usd_root_dir = self.ui.root_picker.text()
+        #usd_root_dir = self.ui.root_picker.text()
         rig_file = self.ui.rig_picker.text()
 
         ld.load_rig(self.rig_path)

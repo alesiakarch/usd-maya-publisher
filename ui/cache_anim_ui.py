@@ -4,9 +4,10 @@ from PySide2.QtCore import Qt
 from shiboken2 import wrapInstance
 import maya.OpenMayaUI as OpenMaya
 from pxr import Usd
+from pathlib import Path
 from ui.cache_anim_design import Ui_CacheAnim
 import source.cache_anim as cache
-# import cache anim script
+
 
 class CacheAnimUI(QDialog):
     def __init__(self, parent = None):
@@ -20,6 +21,7 @@ class CacheAnimUI(QDialog):
 
         stage_path = cache.usd_utils.get_stage_path()
         stage = Usd.Stage.Open(stage_path)
+        self.stage_dir = Path(stage_path).parent
         #stage = cache.usd_utils.get_stage("/home/s5221034/pipeline-project-alesiakarch/maya_test_project/", "TestScene_stage.usda")
         rigs, rigs_path = cache.find_rigs(stage)
         self.populate_rigs_list(rigs) # runs populate rigs list at window init
@@ -110,9 +112,9 @@ class CacheAnimUI(QDialog):
         """
         Cache anim
         """
-        cache_dir = "/home/s5221034/pipeline-project-alesiakarch/maya_test_project/cache"
+        
         for rig in self.selected_rigs:
-            cache.cache_rig(cache_dir, rig, self.start_frame, self.end_frame, self.euler_filter)
+            cache.cache_rig(self.stage_dir, rig, self.start_frame, self.end_frame, self.euler_filter)
 
 
 def run_cache_anim_ui():
