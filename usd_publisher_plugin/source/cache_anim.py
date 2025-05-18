@@ -34,7 +34,6 @@ def cache_rig(stage_dir, rig_name, start, end, euler=0):
         # Set USD export options
     export_options = (
         f"shadingMode=useRegistry;"
-        f"convertMaterialsTo=None;"
         f"exportUVs=1;"
         f"exportSkels=none;"
         f"exportSkin=none;"

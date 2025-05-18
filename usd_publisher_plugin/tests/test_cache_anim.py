@@ -31,58 +31,6 @@ def test_cache_rig(maya_setup):
     Test the cache_rig function.
     """
     import maya.cmds as cmds
-    # # Mock maya.cmds and pathlib.Path
-    # with patch("maya.cmds") as mock_cmds, patch("usd_publisher_plugin.source.cache_anim.Path") as mock_path:
-    #     # Mock the Path object
-    #     mock_cache_dir = MagicMock()
-    #     mock_path.return_value.__truediv__.return_value = mock_cache_dir
-    #     mock_cache_dir.mkdir = MagicMock()
-    #     mock_file_path = MagicMock()
-    #     mock_cache_dir.__truediv__.return_value = mock_file_path
-    #     mock_file_path.exists.side_effect = [True, False]  # Simulate one existing file (version 001 exists, 002 does not)
-
-    #     # Call the function
-    #     cache_rig("/stage/dir", "rig1", 1, 24)
-
-    #     # Assertions
-
-    #     # 1. Ensure the cache directory is created
-    #     mock_cache_dir.mkdir.assert_called_once_with(parents=True, exist_ok=True)
-
-    #     # 2. Ensure the rig is selected
-    #     mock_cmds.select.assert_called_once_with("rig1")
-
-    #     # 3. Ensure the correct file name is generated
-    #     mock_cache_dir.__truediv__.assert_called_with("rig1_002.usd")  # Version 002 should be used
-
-    #     # 4. Ensure cmds.file is called with the correct arguments
-    #     mock_cmds.file.assert_called_once_with(
-    #         mock_file_path,
-    #         force=True,
-    #         options=(
-    #             "shadingMode=useRegistry;"
-    #             "convertMaterialsTo=None;"
-    #             "exportUVs=1;"
-    #             "exportSkels=none;"
-    #             "exportSkin=none;"
-    #             "exportBlendShapes=0;"
-    #             "exportColorSets=1;"
-    #             "exportDisplayColor=0;"
-    #             "filterTypes=nurbsCurve;"
-    #             "exportComponentTags=1;"
-    #             "defaultMeshScheme=catmullClark;"
-    #             "eulerFilter=0;"
-    #             "defaultUSDFormat=usda;"
-    #             "animation=1;"
-    #             "startTime=1;"
-    #             "endTime=24;"
-    #             "exportInstances=0;"
-    #             "convertMaterialsTo=[UsdPreviewSurface];"
-    #         ),
-    #         typ="USD Export",
-    #         pr=True,
-    #         es=True
-    #     )
     
     with tempfile.TemporaryDirectory() as temp_dir:
         stage_dir = Path(temp_dir)
