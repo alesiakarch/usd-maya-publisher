@@ -3,7 +3,8 @@
     subLayers = [
         @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/TestScene_LAY.usda@,
         @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/Test_Scene_RIG.usda@,
-        @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/TestScene_stage_RIG_layer.usda@
+        @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/TestScene_stage_RIG_layer.usda@,
+        @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/TestScene_stage_ANI_layer_006.usda@
     ]
 )
 
