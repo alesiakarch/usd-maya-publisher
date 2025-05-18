@@ -23,7 +23,7 @@ def cache_rig(stage_dir, rig_name, start, end, euler=0):
         start (int): The start frame for the animation.
         end (int): The end frame for the animation.
         euler (int): Whether to apply Euler filtering. Default is 0 (no filtering).
-
+ 
     """
     # Ensure the cache directory exists
     cache_dir = Path(stage_dir) / "ANI" / "cache"
