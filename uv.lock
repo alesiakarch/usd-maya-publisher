@@ -35,6 +35,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "pyside2" },
     { name = "pytest" },
+    { name = "sphynx" },
     { name = "tomlkit" },
     { name = "usd-core" },
 ]
@@ -43,6 +44,7 @@ dependencies = [
 requires-dist = [
     { name = "pyside2", specifier = ">=5.15.2.1" },
     { name = "pytest", specifier = ">=8.3.5" },
+    { name = "sphynx", specifier = ">=0.0.3" },
     { name = "tomlkit", specifier = ">=0.13.2" },
     { name = "usd-core", specifier = ">=25.5" },
 ]
@@ -84,12 +86,43 @@ wheels = [
 ]
 
 [[package]]
+name = "python-json-logger"
+version = "2.0.7"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/4f/da/95963cebfc578dabd323d7263958dfb68898617912bb09327dd30e9c8d13/python-json-logger-2.0.7.tar.gz", hash = "sha256:23e7ec02d34237c5aa1e29a070193a4ea87583bb4e7f8fd06d3de8264c4b2e1c", size = 10508 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/35/a6/145655273568ee78a581e734cf35beb9e33a370b29c5d3c8fee3744de29f/python_json_logger-2.0.7-py3-none-any.whl", hash = "sha256:f380b826a991ebbe3de4d897aeec42760035ac760345e57b812938dc8b35e2bd", size = 8067 },
+]
+
+[[package]]
 name = "shiboken2"
 version = "5.15.2.1"
 source = { registry = "https://pypi.org/simple" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/34/bb/7bad766088a8ccb6512c5d5d1520a51fcc9221b3ec371b134d14d1b269a5/shiboken2-5.15.2.1-5.15.2-cp35.cp36.cp37.cp38.cp39.cp310-abi3-macosx_10_13_intel.whl", hash = "sha256:ffd3d0ec3d508e592d7ee3885d27fee1f279a49989f734eb130f46d9501273a9", size = 958579 },
     { url = "https://files.pythonhosted.org/packages/a6/0e/c1953bb08f45e0f1703e7dc153e9c94ba3042c282ebcd94cada385a9cdb3/shiboken2-5.15.2.1-5.15.2-cp35.cp36.cp37.cp38.cp39.cp310-abi3-manylinux1_x86_64.whl", hash = "sha256:63debfcc531b6a2b4985aa9b71433d2ad3bac542acffc729cc0ecaa3854390c0", size = 975428 },
+]
+
+[[package]]
+name = "sphynx"
+version = "0.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "python-json-logger" },
+    { name = "structlog" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/26/87/1133516d8a4a6e200967730ee9a113094847ecacb699c5b988740c5f9607/sphynx-0.0.3.tar.gz", hash = "sha256:ecde5dc25e82f4ce4293a2fc4a9029ae660ea63dfb1bdf06f41ddba9a23f8c32", size = 2529 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/78/a2/c76afe203151a5c626d76eb9e164825e28cb9b31a09f1d094c74c5e33f27/sphynx-0.0.3-py3-none-any.whl", hash = "sha256:12182e6f696d16bd9e5363ce2947c9d096da7a1dcd0687f0c3ea7c564eddbe8a", size = 2814 },
+]
+
+[[package]]
+name = "structlog"
+version = "21.5.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ea/77/e38019e698b0c0134f903ab40e87f0975813ca7f74dad287272788134f03/structlog-21.5.0.tar.gz", hash = "sha256:68c4c29c003714fe86834f347cb107452847ba52414390a7ee583472bde00fc9", size = 473089 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4b/a2/7c5d78fa0b6fc4f249d0a732811b2cef979d16677e21f10637bbedcd0e6a/structlog-21.5.0-py3-none-any.whl", hash = "sha256:fd7922e195262b337da85c2a91c84be94ccab1f8fd1957bd6986f6904e3761c8", size = 53394 },
 ]
 
 [[package]]

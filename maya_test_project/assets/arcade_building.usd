@@ -6,7 +6,7 @@
 )
 
 def Xform "arcade_building" (
-    kind = "component"
+    kind = "component" 
 )
 {
     def Mesh "building" (
