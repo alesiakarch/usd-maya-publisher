@@ -1,9 +1,9 @@
 # list of usd libraries ready to be queries because documentation is who
 
 
-import  mayaUsdMayaReferenceUtils, mayaUsdOptions, mayaUsdAddMayaReference,
-mayaUsdDuplicateAsMayaDataOptions, mayaUsdUtils, mayaUsdMergeToUSDOptions,
-mayaUsdCacheMayaReference, mayaUsdLibRegisterStrings, mayaUsdMergeToUsd
+import mayaUsdMayaReferenceUtils, mayaUsdOptions, mayaUsdAddMayaReference
+import mayaUsdDuplicateAsMayaDataOptions, mayaUsdUtils, mayaUsdMergeToUSDOptions
+import mayaUsdCacheMayaReference, mayaUsdLibRegisterStrings, mayaUsdMergeToUsd
 
 help(mayaUsdMayaReferenceUtils)
 help(mayaUsdOptions)
