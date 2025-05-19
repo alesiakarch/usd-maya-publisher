@@ -35,9 +35,19 @@ def test_cache_rig(maya_setup):
     with tempfile.TemporaryDirectory() as temp_dir:
         stage_dir = Path(temp_dir)
         rig_name = "test_rig"
+        namespace = f"{rig_name}_np"
 
-        # Create a dummy rig in Maya
-        cmds.polyCube(name=rig_name)
+        # Create a dummy rig with namespace in Maya
+        cmds.namespace(add=namespace)
+        cmds.namespace(set=namespace)
+        rig_root = cmds.polyCube(name="Example_rig")[0]
+        control_grp = cmds.group(empty=True, name="Example_CNTRL_GRP")
+        cmds.parent(control_grp, rig_root)
+        cmds.namespace(set=":")
+
+        # Verify the rig structure
+        assert cmds.objExists(f"{namespace}:Example_rig"), "Rig root was not created in the namespace."
+        assert cmds.objExists(f"{namespace}:Example_CNTRL_GRP"), "Control group was not created in the namespace."
 
         # Call the function
         cache_rig(stage_dir, rig_name, 1, 24)

@@ -1,7 +1,8 @@
 #usda 1.0
 (
     subLayers = [
-        @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/RIG/referencesTest_stage_RIG_layer.usda@
+        @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/RIG/referencesTest_stage_RIG_layer.usda@,
+        @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/ANI/layer/referencesTest_stage_ANI_layer_005.usda@
     ]
 )
 
@@ -12,6 +13,69 @@ over "rigs"
         bool mayaAutoEdit = 0
         string mayaNamespace = "Test_Rig_001_np"
         asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Test_Rig.ma@
+    }
+
+    def MayaReference "Wall_e_RIG_v001_001"
+    {
+        bool mayaAutoEdit = 0
+        string mayaNamespace = "Wall_e_RIG_v001_001_np"
+        asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Wall-e_Rigs/Wall-e_RIG_v001.mb@
+    }
+
+    def MayaReference "Wall_e_RIG_v001_002"
+    {
+        bool mayaAutoEdit = 0
+        string mayaNamespace = "Wall_e_RIG_v001_002_np"
+        asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Wall-e_Rigs/Wall-e_RIG_v001.mb@
+    }
+
+    def MayaReference "Wall_e_RIG_v001_003"
+    {
+        bool mayaAutoEdit = 0
+        string mayaNamespace = "Wall_e_RIG_v001_003_np"
+        asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Wall-e_Rigs/Wall-e_RIG_v001.mb@
+    }
+
+    def MayaReference "Wall_e_RIG_v001_004"
+    {
+        bool mayaAutoEdit = 0
+        string mayaNamespace = "Wall_e_RIG_v001_004_np"
+        asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Wall-e_Rigs/Wall-e_RIG_v001.mb@
+    }
+
+    def MayaReference "Wall_e_RIG_v001_005"
+    {
+        bool mayaAutoEdit = 0
+        string mayaNamespace = "Wall_e_RIG_v001_005_np"
+        asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Wall-e_Rigs/Wall-e_RIG_v001.mb@
+    }
+
+    def MayaReference "Wall_e_RIG_v001_006"
+    {
+        bool mayaAutoEdit = 0
+        string mayaNamespace = "Wall_e_RIG_v001_006_np"
+        asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Wall-e_Rigs/Wall-e_RIG_v001.mb@
+    }
+
+    def MayaReference "Wall_e_RIG_v001_007"
+    {
+        bool mayaAutoEdit = 0
+        string mayaNamespace = "Wall_e_RIG_v001_007_np"
+        asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Wall-e_Rigs/Wall-e_RIG_v001.mb@
+    }
+
+    def MayaReference "Wall_e_RIG_v001_008"
+    {
+        bool mayaAutoEdit = 0
+        string mayaNamespace = "Wall_e_RIG_v001_008_np"
+        asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Wall-e_Rigs/Wall-e_RIG_v001.mb@
+    }
+
+    def MayaReference "Wall_e_RIG_v001_009"
+    {
+        bool mayaAutoEdit = 0
+        string mayaNamespace = "Wall_e_RIG_v001_009_np"
+        asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Wall-e_Rigs/Wall-e_RIG_v001.mb@
     }
 }
 

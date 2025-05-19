@@ -68,5 +68,12 @@ over "rigs"
         string mayaNamespace = "Wall_e_RIG_v001_004_np"
         asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Wall-e_Rigs/Wall-e_RIG_v001.mb@
     }
+
+    def MayaReference "Test_Rig_005"
+    {
+        bool mayaAutoEdit = 0
+        string mayaNamespace = "Test_Rig_005_np"
+        asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Test_Rig.ma@
+    }
 }
 
