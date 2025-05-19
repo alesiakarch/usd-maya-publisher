@@ -27,16 +27,8 @@ def cache_rig(stage_dir, rig_name, start, end, euler=0):
     """
     # Find the node containing the rig with the namespace
     rig_namespace = f"{rig_name}_np"
-    rig_root = find_top_node_in_namespace(rig_namespace)
+    rig_root = usd_utils.find_top_node_in_namespace(rig_namespace)
     print(f"Top-level rig node: {rig_root}")
-
-    # # Find the node containing the rig with the namespace
-    # rig_namespace = f"{rig_name}_np"
-    # rig_full_paths = cmds.ls(f"{rig_namespace}:Tube_rig", long=True)  # Specifically target "Tube_rig"
-    # if not rig_full_paths:
-    #     raise RuntimeError(f"Rig with namespace '{rig_namespace}' not found.")
-    # rig_root = rig_full_paths[0]
-
 
     # Unparent the rig from the USD hierarchy
     parent = cmds.listRelatives(rig_root, parent=True, fullPath=True)
@@ -76,12 +68,6 @@ def cache_rig(stage_dir, rig_name, start, end, euler=0):
     except RuntimeError as e:
         # Handle the case where the node is not a reference or import fails
         print(f"{rig_root} is not a referenced node or failed to import: {e}")
-
-    # # Ensure the rig is fully imported and no longer part of a reference
-    # rig_full_paths = cmds.ls(f"{rig_namespace}:*", long=True)  # Recheck "Tube_rig"
-    # if not rig_full_paths:
-    #     raise RuntimeError(f"Rig with namespace '{rig_namespace}' not found after importing reference.")
-    # rig_root = rig_full_paths[0]
 
     # Ensure the cache directory exists
     cache_dir = Path(stage_dir) / "ANI" / "cache"
@@ -131,27 +117,4 @@ def cache_rig(stage_dir, rig_name, start, end, euler=0):
     print(f"Caching complete: {output_path}")
 
 
-# Find the top node in the namespace
-def find_top_node_in_namespace(rig_namespace):
-    
-    # List all transform nodes in the namespace
-    rig_full_paths = cmds.ls(f"{rig_namespace}:*", type="transform", long=True)
-    print(f"List of namespace nodes: {rig_full_paths}")
-    if not rig_full_paths:
-        raise RuntimeError(f"No nodes found in namespace '{rig_namespace}'.")
-
-    # Filter for the top-level node (no parent within the namespace)
-    top_level_nodes = [
-        node for node in rig_full_paths
-        if not any(
-            parent for parent in cmds.listRelatives(node, parent=True, fullPath=True) or []
-            if f"{rig_namespace}:" in parent
-        )
-    ]
-
-    if not top_level_nodes:
-        raise RuntimeError(f"No top-level node found in namespace '{rig_namespace}'.")
-
-    # Return the first top-level node
-    return top_level_nodes[0]
 

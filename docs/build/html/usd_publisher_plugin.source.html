@@ -164,6 +164,24 @@ Reference.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="usd_publisher_plugin.source.usd_tool_utils.find_top_node_in_namespace">
+<span class="sig-prename descclassname"><span class="pre">usd_publisher_plugin.source.usd_tool_utils.</span></span><span class="sig-name descname"><span class="pre">find_top_node_in_namespace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rig_namespace</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usd_publisher_plugin.source.usd_tool_utils.find_top_node_in_namespace" title="Link to this definition">¶</a></dt>
+<dd><p>Finds the top-level node in a given namespace rig.
+Lists all transform nodes with the namespace and finds one without a namespaced parent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rig_namespace</strong> (<em>str</em>) – The namespace to search for the top-level node in.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The full path of the top-level node in the namespace.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="usd_publisher_plugin.source.usd_tool_utils.generate_namespace">
 <span class="sig-prename descclassname"><span class="pre">usd_publisher_plugin.source.usd_tool_utils.</span></span><span class="sig-name descname"><span class="pre">generate_namespace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_namespace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rig_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#usd_publisher_plugin.source.usd_tool_utils.generate_namespace" title="Link to this definition">¶</a></dt>
 <dd><p>Generate a unique namespace for the rig based on the asset namespace and existing rigs.</p>

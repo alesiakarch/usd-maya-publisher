@@ -218,58 +218,38 @@ def get_rig_layer(stage, rig_file, rig_layer_dir, rig_file_name):
     stage.SetEditTarget(rig_layer)
     return rig_layer
 
-# def clean_usd(input_file, output_file, new_namespace):
-#     """
-#     Cleans a USD file by renaming the defaultPrim and removing everything
-#     up to and including the MayaReference prim.
+# Find the top node in the namespace
+def find_top_node_in_namespace(rig_namespace):
+    """
+    Finds the top-level node in a given namespace rig.
+    Lists all transform nodes with the namespace and finds one without a namespaced parent.
 
-#     Args:
-#         input_file (str): Path to the input USD file.
-#         output_file (str): Path to save the cleaned USD file.
-#         new_namespace (str): The new namespace to rename the defaultPrim to.
-#     """
-#     # Open the stage
-#     stage = Usd.Stage.Open(input_file)
+    Args:
+        rig_namespace (str): The namespace to search for the top-level node in.
 
-#     # Find the __mayaUsd__ prim
-#     maya_usd_prim = stage.GetPrimAtPath("/__mayaUsd__")
-#     if not maya_usd_prim:
-#         print("Error: __mayaUsd__ prim not found.")
-#         return
+    Returns:
+        str: The full path of the top-level node in the namespace.
+    """
+    
+    # List all transform nodes in the namespace
+    rig_full_paths = cmds.ls(f"{rig_namespace}:*", type="transform", long=True)
+    print(f"List of namespace nodes: {rig_full_paths}")
+    if not rig_full_paths:
+        raise RuntimeError(f"No nodes found in namespace '{rig_namespace}'.")
 
-#     # Rename __mayaUsd__ to the new namespace
-#     maya_usd_prim.SetName(new_namespace)
-#     print(f"Renamed '__mayaUsd__' to '{new_namespace}'.")
+    # Filter for the top-level node (no parent within the namespace)
+    top_level_nodes = [
+        node for node in rig_full_paths
+        if not any(
+            parent for parent in cmds.listRelatives(node, parent=True, fullPath=True) or []
+            if f"{rig_namespace}:" in parent
+        )
+    ]
 
-#     # Traverse down to find the MayaReference prim
-#     maya_reference_prim = None
-#     for child in stage.GetPrimAtPath(f"/{new_namespace}").GetChildren():
-#         if child.GetTypeName() == "MayaReference":
-#             maya_reference_prim = child
-#             break
+    if not top_level_nodes:
+        raise RuntimeError(f"No top-level node found in namespace '{rig_namespace}'.")
 
-#     if not maya_reference_prim:
-#         print("Error: MayaReference prim not found.")
-#         return
-
-#     # Get the children of the MayaReference prim (these are the contents to keep)
-#     children_to_keep = list(maya_reference_prim.GetChildren())
-
-#     # Remove everything up to and including the MayaReference prim
-#     stage.RemovePrim(maya_reference_prim.GetPath())
-#     print(f"Removed MayaReference prim and its parent hierarchy.")
-
-#     # Reparent the children of the MayaReference prim to the new namespace
-#     for child in children_to_keep:
-#         child.SetParent(stage.GetPrimAtPath(f"/{new_namespace}"))
-#         print(f"reparent '{child.GetName()}' to '/{new_namespace}'.")
-
-#     # Set the new defaultPrim
-#     stage.SetDefaultPrim(stage.GetPrimAtPath(f"/{new_namespace}"))
-#     print(f"Set defaultPrim to '{new_namespace}'.")
-
-#     # Save the cleaned USD file
-#     stage.GetRootLayer().Export(output_file)
-#     print(f"Cleaned USD file saved to: {output_file}")
+    # Return the first top-level node
+    return top_level_nodes[0]
 
 

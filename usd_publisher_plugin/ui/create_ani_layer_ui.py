@@ -28,6 +28,8 @@ class CreateAniLayerUI(QDialog):
         # activates the cache latest at the start
         self.latest_cache_ticked(self.ui.latest_cache_checkbox.checkState())
 
+        # Connect functionality
+        self.ui.rigs_caches_tree.itemSelectionChanged.connect(self.cache_list_selected)
         self.ui.latest_cache_checkbox.stateChanged.connect(self.latest_cache_ticked)
         self.ui.create_button.clicked.connect(self.create_ani_layer_pressed)
     

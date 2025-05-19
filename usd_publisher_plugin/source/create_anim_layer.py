@@ -55,7 +55,7 @@ def create_anim_layer(caches):
     stage.SetEditTarget(anim_layer) # activate anim layer for editing
 
     cache_grp = stage.DefinePrim("/Caches", "Xform")
-
+    print(f"Caches to be added: {caches}")
     for cache in caches:
         print("Adding cache references")
         cache_grp.GetReferences().AddReference(str(cache))
