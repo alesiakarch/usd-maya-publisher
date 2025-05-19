@@ -1,9 +1,0 @@
-#usda 1.0
-(
-    "Created new usd layer /home/s5221034/pipeline-project-alesiakarch/maya_test_project/ANI/layer/referencesTest_stage_ANI_layer_006.usda"
-)
-
-def Xform "Caches"
-{
-}
-
