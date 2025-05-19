@@ -259,3 +259,36 @@ def test_get_rig_layer():
         assert rig_layer.identifier.endswith("existing_layer"), (
             f"Expected identifier to end with 'existing_layer', got {rig_layer.identifier}"
         )
+
+def test_find_top_node_in_namespace(maya_setup):
+    """
+    Tests the find_top_node_in_namespace function by making a mock namespace
+    """
+    # Create a test namespace and hierarchy
+    namespace = "testNamespace"
+    cmds.namespace(add=namespace)
+    cmds.namespace(set=namespace)
+    
+    # Create a hierarchy of transform nodes
+    top_node = cmds.createNode("transform", name="topNode")
+    child_node = cmds.createNode("transform", name="childNode", parent=top_node)
+    grandchild_node = cmds.createNode("transform", name="grandchildNode", parent=child_node)
+    
+    # Reset to the root namespace
+    cmds.namespace(set=":")
+    
+    # Call the function to find the top-level node
+    try:
+        result = find_top_node_in_namespace(namespace)
+        print(f"Top-level node found: {result}")
+        
+        # Verify the result
+        expected = f"|{namespace}:topNode"
+        assert result == expected, f"Expected {expected}, but got {result}"
+        print("Test passed!")
+    except RuntimeError as e:
+        print(f"Test failed: {e}")
+    finally:
+        # Clean up the test namespace and nodes
+        cmds.namespace(set=":")
+        cmds.namespace(removeNamespace=namespace, mergeNamespaceWithRoot=True)

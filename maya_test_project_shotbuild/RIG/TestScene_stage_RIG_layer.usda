@@ -1,0 +1,28 @@
+#usda 1.0
+(
+    "Created new usd layer /home/s5221034/pipeline-project-alesiakarch/maya_test_project_shotbuild/RIG/TestScene_stage_RIG_layer.usda"
+)
+
+def Xform "rigs"
+{
+    def Xform "Test_Rig_001"
+    {
+        def MayaReference "Test_Rig_001"
+        {
+            bool mayaAutoEdit = 0
+            string mayaNamespace = "Test_Rig_001_np"
+            asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project_shotbuild/assets/Test_Rig.ma@
+        }
+    }
+
+    def Xform "Wall_e_RIG_v001_001"
+    {
+        def MayaReference "Wall_e_RIG_v001_001"
+        {
+            bool mayaAutoEdit = 0
+            string mayaNamespace = "Wall_e_RIG_v001_001_np"
+            asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project_shotbuild/assets/Wall-e_Rigs/Wall-e_RIG_v001.mb@
+        }
+    }
+}
+

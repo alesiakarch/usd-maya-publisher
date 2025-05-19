@@ -5,7 +5,8 @@
 # I'll hardcode the "rigs" Xform for now to focus on the loading part
 # I think in production the proxy rigs are added to layout to convey which characters are in the scene, and then the animators load the rig into the ANIM layer
 from pathlib import Path
-from pxr import Usd, Sdf, UsdGeom
+from pxr import Usd, Sdf
+import maya.mel as mel
 import maya.cmds as cmds
 import usd_publisher_plugin.source.usd_tool_utils as usd_utils
 
@@ -44,6 +45,12 @@ def load_rig(asset_path):
     # Defining the rig path and namespace before loading Maya reference
     dag_path = usd_utils.get_scene_proxy()
 
+    # sets RIG layer as target
+    rig_layer_path = str(rig_file)  # Path to the RIG layer file
+    mel.eval(f'mayaUsdEditTarget -edit -editTarget "{rig_layer_path}" "{dag_path}";')
+
+    print(f"Set edit target to RIG layer: {rig_layer_path}")
+
     # check if the rigs xform exist, if not - create
     rigs_grp = stage.GetPrimAtPath("/rigs")
     if rigs_grp.IsValid():
@@ -60,11 +67,18 @@ def load_rig(asset_path):
     asset_namespace = Path(str(asset_path[0])).stem.replace("-", "_") # rig_name
     print(f"{asset_namespace} from {asset_path}")
 
-    # constructs the final path where to load usd rig
-    path_to_usd_rig = f"{dag_path},{rig_path}"
-    print(f"path to usd rig: {path_to_usd_rig}") 
-    
     maya_namespace = usd_utils.generate_namespace(stage, asset_namespace, rig_path)
+
+    # Define the rig prim in the RIG layer
+    rig_prim_path = f"/rigs/{maya_namespace}"
+    rig_prim = stage.GetPrimAtPath(rig_prim_path)
+    if not rig_prim.IsValid():
+        stage.DefinePrim(rig_prim_path, "Xform")
+        print(f"Defined rig prim at {rig_prim_path} in the RIG layer")
+
+    # constructs the final path where to load usd rig
+    path_to_usd_rig = f"{dag_path},{rig_prim_path}"
+    print(f"path to usd rig: {path_to_usd_rig}") 
 
     # Ensure mayaReferencePath is an SdfAssetPath
     maya_reference_path = Sdf.AssetPath(str(asset_path[0]))

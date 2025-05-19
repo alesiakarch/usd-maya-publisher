@@ -23,18 +23,59 @@ def cache_rig(stage_dir, rig_name, start, end, euler=0):
         start (int): The start frame for the animation.
         end (int): The end frame for the animation.
         euler (int): Whether to apply Euler filtering. Default is 0 (no filtering).
-
+ 
     """
+    # Find the node containing the rig with the namespace
+    rig_namespace = f"{rig_name}_np"
+    rig_root = usd_utils.find_top_node_in_namespace(rig_namespace)
+    print(f"Top-level rig node: {rig_root}")
+
+    # Unparent the rig from the USD hierarchy
+    parent = cmds.listRelatives(rig_root, parent=True, fullPath=True)
+    if parent:
+        print(f"Unparenting {rig_root} from {parent[0]}...")
+        try:
+            # Select the rig root
+            cmds.select(rig_root, replace=True)
+            # Unparent the rig
+            cmds.parent(rig_root, world=True)
+            rig_root_short = rig_root.split("|")[-1] # stringps to the short name
+            rig_root = cmds.ls(rig_root_short, long=True)
+            print(f"new rig root {rig_root}")
+        except RuntimeError as e:
+            print(f"Failed to unparent {rig_root}: {e}")
+            raise RuntimeError(f"Could not unparent {rig_root}. Try manually unparenting it in Maya.")
+
+
+        # Check if rig_root is a reference and import it
+    try:
+        # Query the reference node for rig_root
+        ref_node = cmds.referenceQuery(rig_root, referenceNode=True)
+        print(f"Reference node for {rig_root}: {ref_node}")
+        
+        # Get the file path of the reference
+        reference_file_path = cmds.referenceQuery(ref_node, filename=True)
+        print(f"Reference file path for {ref_node}: {reference_file_path}")
+        
+        # Ensure the reference is loaded before importing
+        if not cmds.referenceQuery(ref_node, isLoaded=True):
+            print(f"Reference {ref_node} is not loaded. Loading it...")
+            cmds.file(loadReference=ref_node)
+        
+        # Import the reference to flatten it
+        print(f"Importing reference {ref_node} from {reference_file_path} to flatten rig for export...")
+        cmds.file(reference_file_path, importReference=True)
+    except RuntimeError as e:
+        # Handle the case where the node is not a reference or import fails
+        print(f"{rig_root} is not a referenced node or failed to import: {e}")
+
     # Ensure the cache directory exists
     cache_dir = Path(stage_dir) / "ANI" / "cache"
     cache_dir.mkdir(parents=True, exist_ok=True)
     
-    # select the rig beforehand
-    cmds.select(rig_name)
-        # Set USD export options
+    # Set USD export options
     export_options = (
         f"shadingMode=useRegistry;"
-        f"convertMaterialsTo=None;"
         f"exportUVs=1;"
         f"exportSkels=none;"
         f"exportSkin=none;"
@@ -62,6 +103,8 @@ def cache_rig(stage_dir, rig_name, start, end, euler=0):
         index += 1
 
     # Export to USD
+    cmds.select(rig_root, replace=True)
+    print(f"Selection is {rig_root}")
     cmds.file(
         output_path,
         force=True,
