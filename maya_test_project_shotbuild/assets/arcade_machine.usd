@@ -1,0 +1,94 @@
+#usda 1.0
+(
+    defaultPrim = "arcade_machine"
+    metersPerUnit = 0.01
+    upAxis = "Y"
+)
+
+def Xform "arcade_machine" (
+    kind = "component"
+)
+{
+    def Mesh "machine" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform bool doubleSided = 1
+        float3[] extent = [(-0.5, -0.5, -0.5), (0.5, 0.5, 0.5)]
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [15, 16, 11, 2, 2, 11, 8, 4, 4, 8, 13, 14, 6, 9, 10, 0, 17, 12, 5, 3, 14, 15, 2, 4, 8, 5, 12, 13, 10, 9, 7, 1, 11, 16, 17, 3, 8, 11, 3, 5, 13, 12, 7, 9, 14, 13, 9, 6, 6, 0, 15, 14, 0, 10, 16, 15, 17, 16, 10, 1, 1, 7, 12, 17]
+        rel material:binding = </arcade_machine/mtl/arcade_MatSG>
+        point3f[] points = [(-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.19600344, 0.23516506, 0.5), (-0.5, 0.5, -0.5), (0.19600344, 0.23516506, -0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (-0.12997723, 0.5, -0.5), (-0.12997723, -0.5, -0.5), (-0.12997723, -0.5, 0.5), (-0.12997723, 0.5, 0.5), (0.5, -0.0052043796, -0.5), (-0.12997723, -0.0052043796, -0.5), (-0.5, -0.0052043796, -0.5), (-0.5, -0.0052043796, 0.5), (-0.12997723, -0.0052043796, 0.5), (0.5, -0.0052043796, 0.5)]
+        texCoord2f[] primvars:st = [(0.375, 0), (0.625, 0), (0.375, 0.25), (0.625, 0.25), (0.375, 0.5), (0.625, 0.5), (0.375, 0.75), (0.625, 0.75), (0.375, 1), (0.625, 1), (0.875, 0), (0.875, 0.25), (0.125, 0), (0.125, 0.25), (0.4675057, 0.5), (0.4675057, 0.75), (0.4675057, 0), (0.4675057, 1), (0.4675057, 0.25), (0.625, 0.62630105), (0.875, 0.123698905), (0.4675057, 0.62630105), (0.125, 0.123698905), (0.375, 0.62630105), (0.375, 0.123698905), (0.4675057, 0.123698905), (0.625, 0.123698905)] (
+            customData = {
+                dictionary Maya = {
+                    token name = "map1"
+                }
+            }
+            interpolation = "faceVarying"
+        )
+        int[] primvars:st:indices = [24, 25, 18, 2, 2, 18, 14, 4, 4, 14, 21, 23, 6, 15, 17, 8, 26, 20, 11, 3, 22, 24, 2, 13, 14, 5, 19, 21, 17, 15, 7, 9, 18, 25, 26, 3, 14, 18, 3, 5, 21, 19, 7, 15, 23, 21, 15, 6, 12, 0, 24, 22, 0, 16, 25, 24, 26, 25, 16, 1, 1, 10, 20, 26]
+        float3 xformOp:scale = (3.5067577, 7.754446, 3.5067577)
+        double3 xformOp:translate = (1.343334957633358, 5.179230633806742, -2.010245339075457)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+
+        def GeomSubset "back"
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "componentTag"
+            int[] indices = [2, 6, 10, 11]
+        }
+
+        def GeomSubset "bottom"
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "componentTag"
+            int[] indices = [3, 7]
+        }
+
+        def GeomSubset "front"
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "componentTag"
+            int[] indices = [0, 8, 13, 14]
+        }
+
+        def GeomSubset "left"
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "componentTag"
+            int[] indices = [5, 12]
+        }
+
+        def GeomSubset "right"
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "componentTag"
+            int[] indices = [4, 15]
+        }
+
+        def GeomSubset "top"
+        {
+            uniform token elementType = "face"
+            uniform token familyName = "componentTag"
+            int[] indices = [1, 9]
+        }
+    }
+
+    def Scope "mtl"
+    {
+        def Material "arcade_MatSG"
+        {
+            token outputs:surface.connect = </arcade_machine/mtl/arcade_MatSG/arcade_Mat.outputs:surface>
+
+            def Shader "arcade_Mat"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.34067973, 0.17856799, 0.442)
+                token outputs:displacement
+                token outputs:surface
+            }
+        }
+    }
+}
+
