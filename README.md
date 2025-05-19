@@ -1,13 +1,37 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/Tn7g_Mhz)
 
-# Potentially a USD publisher
-I am thinking of doing some sort of USD publisher, similar to what we had in the studio, so importing rigs and working on animation can actually make sense. I will be adding more research and specification as I go, this is just to fixate the idea, because I have no other for now. 
+# USD publishing Tool
+I set out to make some sort of USD publisher, similar to what we had in the studio, so importing rigs and working on animation in USD can actually make sense. 
 
-So, what if I could make a tool, that with a click of one button and a couple of settings would cache out the animation and make an anim layer in the appropriate folder (at least)? 
-When setting things up for the group project, I tried using the Maya USD plugin to generate all the layers, etc. and thought that the layer editor was quite messy and required a lot of attention from the artist, who might not be trained to use it yet (also, is why we aren't using USD for our group project).
-Maybe it can be a good idea to abstract this work into code, so when the artist is finished with their scene, they can publish it into a layer with minimal setup from their side, and the tool in turn will write out the USD file with all relevant dependencies, like rigs, and versioning, as well as create an anim layer from the latest character cache.
+This tool was conceived with a multiple DCC pipeline in mind, where Maya workflow ends at the animation stage and then all the data is passed on to Houdini (or other DCC of choice) to do CFX, Lighting, etc.
+Hence, come in the USD, which can allow less painful dataflow between departments and, more importantly, non-destructive editing.
+Therefore, this plugin is designed to output an animation layer usda file, which can be passed on to further departments, but not necessarily facilitate further workflow in Maya after the animation stage. 
 
-If the focus is on animation, it can be nice to also make a similar system for loading rigs. Maybe a simple database, from which the artist chooses the rig, the tool fetches the latest version of it, and references it into the USD stage (LAY layer can be provided separately). Then the artist works on the rig, and when they are done, use the tool to cache the character(s), and then publish the anim layer that pulls it all together. 
+When setting things up for the group project, I used the Maya USD plugin to generate all the layers, and thought that the layer editor was quite messy and required a lot of attention from the artist, who might not be trained to use it yet or not see it as their priority.
+It should be the pipeline team's job to abstract this work into code so that when the artist is finished with their scene, they can publish it into a layer with minimal setup from their side. The tool, in turn, will write out the USD file with all relevant dependencies, like rigs and versioning, as well as create an anim layer from the latest character cache.
+
+# Installation 
+The plugin has an installer script that will generate a .mod file in the relevant maya/module folder. 
+
+1. Run Installer.py from the plugin, where the script is based. It can be done via bash terminal or by running the python file itself
+2. Launch Maya, navigate to Windows > Settings/Preferences > Plug-in manager, search for the new plugin and click Load.
+
+Alternatively, if the installer isn't behaving, the user can load the plug-in manually, but this will need to be done at every new Maya session:
+1. Windows > Settings/Preferences > Plug-in manager > Browse
+2. Navigate to the plugin directory and insdie usd_publisher_plugin select usd_publisher.py
+3. This will load it into the Plug-in managed under the Other Registered Plugins
+
+When the plugin is loaded, a new Pipeline menu should appear at the top, next to the Arnold menu and a message "Plugin successfully loaded" in the script editor. 
+
+![image](https://github.com/user-attachments/assets/b82ef312-d9bb-488a-8b03-3194892ccda3)
+
+# Usage
+
+The tool consists of three buttons with 
+
+# Documentation
+
+HTML pages are available in the docs/build folder of this repo. Generated with Sphinx.
 
 # Initial Design (TLDR; 3 buttons that do stuff)
 
@@ -15,13 +39,7 @@ Okay, so lets add some design thoughts. I had a play with a native USD plugin in
 Assembing usd stages, seems quite straight forward, even if a little finiky (being afraid to add things to the wrong layer, etc). 
 Then, I went through the process of how to add rigs to the stage and follow through the animation.
 
-## Workflow:
-1.	Have your shot built (stage file loaded with all the layout and stuff)
-2.	Add the Xform for rigs because that’s where you want to store all ur characters (can be added automatically at LAY stage or has to be scripted when the)
-3.	Do "add maya reference" to the rigs Xform (need to manually locate the file and change the namespace)
-4.	Animate the thing
-5. Cache to USD on the Maya rig - too many settings, never know what to press
-6. Rig turns to USD data. If you want to adjust further, edit as Maya data (currently breaks my rig)
+
 
 ### So my pet peeves with the current Maya USD plugin when it comes to animation:
 
@@ -53,18 +71,10 @@ So
 - From each character folder, picks up the latest cache.
 - Generates a USD file that references all picked-up files and saves it as an ANI layer
 
-I see two options for this: 
-1. Script the commands required to load and cache animation manually (too easy to be true)
-2. Manually generate the USD files in the convention and state that I want.
+### Further Developments
 
-This might actually be a hybrid solution, as for example, the Load Rig button is basically just running maya commands, while anim layer most likely will have to be published separately, hence - generated. 
+This project has potential to be extended to a larger pipeline, with similar tools for other deparments like LAY and CFX, as well as integrating with project structure generation and databases for assets, etc.
 
-List of available modules related to mayaUsd:
-
-mayaUsdAddMayaReference.mel    mayaUsdDuplicateAsMayaDataOptions.mel  mayaUsdMayaReferenceUtils.py  mayaUsdOptions.py
-mayaUsdAddMayaReference.py     mayaUsdDuplicateAsMayaDataOptions.py   mayaUsdMergeToUSDOptions.mel  mayaUsdUtils.py
-mayaUsdCacheMayaReference.mel  mayaUsdLibRegisterStrings.mel          mayaUsdMergeToUSDOptions.py
-mayaUsdCacheMayaReference.py   mayaUsdLibRegisterStrings.py           mayaUsdMergeToUsd.py
 
  
 
