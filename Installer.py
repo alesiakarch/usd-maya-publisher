@@ -31,15 +31,16 @@ def generate_mod(os_name):
     print(f"modules directory = {modules_dir}")
     modules_dir.mkdir(exist_ok=True)
 
+    plugin_dir = Path(f"{user_dir}/usd_publisher_plugin")
     # if mod isn't founds as file - write it
     if not mod_path.is_file():
         print("Generating .mod for UsdPublisherPlugin")
         with open(mod_path, "w") as file:
             file.write(f"+ {MODULE_NAME} {VERSION} {user_dir}\n") # first like with name and location
-            file.write(f"MAYA_PLUG_IN_PATH += {user_dir}\n") # add each plugin module by line
-            file.write(f"PYTHONPATH += {user_dir}\n")
-            file.write(f"PYTHONPATH += {user_dir / 'source'}\n")
-            file.write(f"PYTHONPATH += {user_dir / 'ui'}\n")
+            file.write(f"MAYA_PLUG_IN_PATH += {plugin_dir}\n") # add each plugin module by line
+            file.write(f"PYTHONPATH += {plugin_dir}\n")
+            file.write(f"PYTHONPATH += {plugin_dir / 'source'}\n")
+            file.write(f"PYTHONPATH += {plugin_dir / 'ui'}\n")
         print(f"mod file created at {mod_path}")
     else:
         print(f"mod file already exists at {mod_path}")
