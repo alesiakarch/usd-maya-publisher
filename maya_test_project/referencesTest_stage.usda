@@ -1,0 +1,17 @@
+#usda 1.0
+(
+    subLayers = [
+        @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/RIG/referencesTest_stage_RIG_layer.usda@
+    ]
+)
+
+over "rigs"
+{
+    def MayaReference "Test_Rig_001"
+    {
+        bool mayaAutoEdit = 0
+        string mayaNamespace = "Test_Rig_001_np"
+        asset mayaReference = @/home/s5221034/pipeline-project-alesiakarch/maya_test_project/assets/Test_Rig.ma@
+    }
+}
+

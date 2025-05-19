@@ -1,0 +1,9 @@
+#usda 1.0
+(
+    "Created new usd layer /home/s5221034/pipeline-project-alesiakarch/maya_test_project/RIG/referencesTest_stage_RIG_layer.usda"
+)
+
+def Xform "rigs"
+{
+}
+
