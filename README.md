@@ -27,53 +27,87 @@ When the plugin is loaded, a new Pipeline menu should appear at the top, next to
 
 # Usage
 
-The tool consists of three buttons with 
+The tool consists of three buttons with connected functionality, but they can be used separately if the conventions are met. 
+For readability purposes, all usd files, except for caches, have .usda extension.
+
+## Prerequisite
+1. A stage.usda file - this is the main usd file that will contain all the layers, e.g. LAY layer.
+   The tool uses path to stage.usda as a root directory, so everything will be written out relative to it.
+   The idea is to have an encapsulated layer structure per shot (stage) like so:
+   ```
+   Shot_0110_0110/
+       ├── stage.usda
+       ├── RIG
+       │   └── RIG_layer.usda
+       ├── ANI
+       │   ├── cache/
+       │       └── cache_001.usd
+       │   └── layer/
+       │        └── ANI_layer.usda
+       ├── CFX/*
+       ├── LAY/*
+       └── LIT/*
+   * - example folders for other departments
+   ```
+2. This stage.usda file must be loaded into a Maya scene. Maya scene may be saved, but doesn't have to be for the tool to work, as it relies only on .usda
+3. When working on animation, SAVE before caching the animation, as it will load in the rig references. After caching, revert to the saved scene to continue working.
+4. Versioning has a limit, about a 100 for identical rigs and 100 caches of one rig. This is to avoid infinite loops when generating namespaces, and also to keep the versions in a reasonable size.
+5. It is always assumed that there is only one Usd stage in the scene. The tool will only pick up the first proxyShape and get on with it.
+   
+## Load Rig
+
+As name suggests, Pipeline > Load Rig button loads rigs.
+1. Browse > Select .ma or .mb rig from the file explorer
+2. Load Rig!
+   
+   ![image](https://github.com/user-attachments/assets/169e34a1-3840-481d-9418-4beb8fbcf53b)
+   
+This will pick up or create the RIG layer for the stage, make a /rigs Xform to store rigs under and append the selected rig as a MayaReference. 
+Now rigs are part of the USD hierarchy, ready to work with. 
+
+## Cache Anim
+
+Pipeline > Cache Anim is used to export animated rigs as usd data. First, the tool will pull all rigs under the /rigs prim of the loaded stage that it can find.
+This will create ANI directory with cache subdir in it to store caches. All caches will be versioned per rig and are designed to be separate per character.
+0. SAVE THE SCENE!
+1. Select rigs to cache. "Select All" will select or deselect everything at once.
+2. "Custom Framerange" allows setting a different framerange than what was picked up from the scene. The automatic values are determined by the start and end times.
+3. "Euler filter" enables or disables euler filter on usd when caching. The default value is 0.
+4. Cache Anim!
+5. Optional: Reload to the scene you saved before caching to continue working.
+   
+![image](https://github.com/user-attachments/assets/9d070a14-12c3-46a0-89dc-d0b7e606c266)
+
+## Create ANI Layer
+
+Pipeline > Create ANI layer fetches all available caches from ANI/cache, creates a new ANI usd layer, references caches into it and saves into ANI/layer.
+Each ANI layer will be saved as a new version, which enables rolling back a version if needed. Selecting caches individually enables updating only the requested characters,
+instead of re-caching the whole shot.
+
+1. Select which caches to make a layer of. "Assemble Latest Cache" will select caches with the highest version number from all available rigs.
+2. Cache ANI Layer!
+
+![image](https://github.com/user-attachments/assets/ad544a49-3497-484f-8d66-32c9467d57fc)
+
+## Outcome
+
+After ANI layer is created, it should be available to load and view in USDViewer or other DCC packages like Houdini, carrying the animation data down the pipeline. 
+
+![image](https://github.com/user-attachments/assets/a04361d6-03eb-43f1-82af-93bf534b7505)
+
+### Extra
+
+This repo includes two test Maya projects - one empty with only the stage.usda and some test assets, and one already run a couple of times through the pipeline with the caches and layers available.
 
 # Documentation
 
-HTML pages are available in the docs/build folder of this repo. Generated with Sphinx.
+HTML pages for the plugin modules are available in the docs/build folder of this repo. Generated with Sphinx.
 
-# Initial Design (TLDR; 3 buttons that do stuff)
+# Further Developments
 
-Okay, so lets add some design thoughts. I had a play with a native USD plugin in Maya, just to get from a stage assembly to animation and get refresher on what I was actually doing. 
-Assembing usd stages, seems quite straight forward, even if a little finiky (being afraid to add things to the wrong layer, etc). 
-Then, I went through the process of how to add rigs to the stage and follow through the animation.
+I think this project has potential to be extended into a larger pipeline, with similar tools made for other departments like LAY and CFX or by integrating databases for rigs, assets, etc. It would be interesting to see it work together with a properly generated project structure.
 
-
-
-### So my pet peeves with the current Maya USD plugin when it comes to animation:
-
-Everything should be already set up for the animator to work with, so the rigs Xform should either come with shotbuild or get created automatically when loading a rig. This will require a "Load Rig" button that will check if the rig Xform is in place and the load the rig in with correct namespace. From there, it is quite okay; the animator can do their work while the rig is Maya data, but then they will need to somehow save it. 
-Caching is a bit of a let down because, first, it removes the ability to edit the animation as it turns it into USD data (needs to be counterscripted), and caching has too many settings that might go wrong (they need to be a preset). 
-Ideally, you don't want the animator poking in your scene hierarchy, so a small shelf/toolbar solution with relevant buttons would be preferable. 
-The animator needs to load the rig (potentially from a database), cache each individual character and assemble animation layer out of all the caches. 
-All of these tools also need to be fool proof - each configuration decided and locked, with the adjustments being available in plain language. 
-
-So
-
-## Load Rig button:
-- Initiates either a file explorer or a database with available rigs for the project
-- After user selects the rig to load, checks for "rigs" Xform, creates one if it doesnt exhist
-- Performs "Add Maya reference" to the rigs Xform
-- As a part for "Add Maya ref" sets a namespace based on the name of the rig, checks if it is available, if it isnt, adds a version (e.g. "Ball_rig_001" exists, adding "Ball_rig_002")
-
-## Cache Anim button:
-- Select the rig in the USD stage
-- The button goes "Cache to USD" and sets the settings to what is correct
-- Checks the name of the rig and names the cache file according to the naming convention in the correct folder for the character. 
-- If the name already exists, adds a version (e.g "Ball_ANI_cache_v001" exists, adding "Ball_ANI_cache_v002")
-- This will have to include frame range lock, so it is always consistent with the shots' frame range
-- Does "Edit as Maya data" to the rig that has turned into the usd to enable the animator to work further
-
-## Create Anim Layer button:
-- Searches the relevant shots folder ("ProjectName_0220_0110" for example)
-- Navigates the the caches folder ("ProjectName_0220_0110/ANI/cache/..")
-- From each character folder, picks up the latest cache.
-- Generates a USD file that references all picked-up files and saves it as an ANI layer
-
-### Further Developments
-
-This project has potential to be extended to a larger pipeline, with similar tools for other deparments like LAY and CFX, as well as integrating with project structure generation and databases for assets, etc.
+Of course, the source code and usability of this plugin can also be improved, based on real-life user scenarios, since the available tool targets mostly "default" usage, as if in a settled pipeline.
 
 
  
