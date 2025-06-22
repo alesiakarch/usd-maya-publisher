@@ -1,6 +1,12 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/Tn7g_Mhz)
+
 
 # USD publishing Tool
+
+
+https://github.com/user-attachments/assets/b69945a3-6ddf-432c-b65b-43455c7672d4
+
+
+
 I set out to make some sort of USD publisher, similar to what we had in the studio, so importing rigs and working on animation in USD can actually make sense. 
 
 This tool was conceived with a multiple DCC pipeline in mind, where Maya workflow ends at the animation stage and then all the data is passed on to Houdini (or other DCC of choice) to do CFX, Lighting, etc.
@@ -105,9 +111,11 @@ HTML pages for the plugin modules are available in the docs/build folder of this
 
 # Further Developments
 
-I think this project has potential to be extended into a larger pipeline, with similar tools made for other departments like LAY and CFX or by integrating databases for rigs, assets, etc. It would be interesting to see it work together with a properly generated project structure.
+This project has the potential to be extended into a larger pipeline, with similar tools made for other departments like LAY and CFX or by integrating databases for rigs, assets, etc. It would be interesting to see it work together with a properly generated project structure.
 
 Of course, the source code and usability of this plugin can also be improved, based on real-life user scenarios, since the available tool targets mostly "default" usage, as if in a settled pipeline.
+
+Next steps - extend the plugin to initialised the scene by building the shots and work with LAY layers.
 
 
  
